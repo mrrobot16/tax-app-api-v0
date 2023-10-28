@@ -1,5 +1,9 @@
 {
     "scripts": {
-        "dev": "uvicorn main:app --reload"
+        "dev": "uvicorn main:app --reload",
+        "push": "yarn push:dev",
+        "push:dev": "git push origin dev",
+        "deploy": "yarn deploy:heroku:dev",
+        "deploy:heroku:dev": "git push heroku dev:master"
     }
 }
