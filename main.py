@@ -1,15 +1,36 @@
 from fastapi import FastAPI, status
-from fastapi.responses import JSONResponse
 
-from utils import use_route_names_as_operation_ids
-from routers import items
+from metadata import metadata
 
-app = FastAPI()
+# from routes import configure_routes
+# from routes.auth import configure_auth_routes
+# from error_handlers import configure_error_handlers
+# from middleware import configure_middleware
+# from static import configure_static_files
+# from metadata import metadata
+# from services import verify_token, verify_key
 
-app.include_router(items.router)
+app = FastAPI(
+    title = metadata["title"],
+    description = metadata["description"],
+    summary = metadata["summary"],
+    version = metadata["version"],
+    terms_of_service = metadata["terms_of_service"],
+    contact = metadata["contact"],
+    license_info = metadata["license_info"],
+    openapi_tags = metadata["tags"],
+    openapi_url = metadata["openapi_url"],
+    # dependencies=[Depends(verify_token), Depends(verify_key)], # NOTE: This will enforce that every single request need token and key.
+    docs_url="/docs",
+    redoc_url="/documentation"
+)
 
 @app.get("/")
-async def root():
-    return JSONResponse(content={"status": 200}, status_code = status.HTTP_200_OK)
+async def health():
+    return {"status": status.HTTP_200_OK}
 
-use_route_names_as_operation_ids(app)
+# configure_static_files(app)
+# configure_error_handlers(app)
+# configure_middleware(app)
+# configure_auth_routes(app)
+# configure_routes(app)
