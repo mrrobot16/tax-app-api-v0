@@ -1,0 +1,14 @@
+.DS_Store
+.env
+venv/
+*.pyc
+.pytest_cache/
+__pycache__/
+node_modules
+dist/
+build/
+.coverage
+testing
+credentials
+playground
+tests
