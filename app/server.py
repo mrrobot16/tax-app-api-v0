@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status
 
 from app.metadata import metadata
-from app.db.firebase import firestore_db
+# from app.db.firebase import firestore_db
 
 # from routes import configure_routes
 # from routes.auth import configure_auth_routes
@@ -29,7 +29,7 @@ app = FastAPI(
 @app.get("/")
 async def health():
 
-    return {"status": status.HTTP_200_OK, 'fb': firestore_db }
+    return {"status": status.HTTP_200_OK, 'fb': 'firestore_db' }
 
 # configure_static_files(app)
 # configure_error_handlers(app)
