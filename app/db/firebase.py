@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-from config import env_variables
+from app.config import env_variables
 
 #  NOTE: Some variables are not needed for firestore.
 FIREBASE_CREDENTIALS = {

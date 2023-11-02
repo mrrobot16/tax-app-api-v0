@@ -2,14 +2,13 @@
     "name": "irs-copilot-api",
     "license": "MIT",
     "scripts": {
-        "start": "python main.py",
-        "dev": "uvicorn app.server:app --reload",
-        "prod": "uvicorn main:app",
+        "dev": "uvicorn app.main:app --reload",
+        "prod": "uvicorn app.main:app",
+        "heroku": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app",
         "push": "git push origin dev",
         "deploy": "git push heroku dev:master",
         "logs":"heroku logs --tail",
-        "task_app": "cd task_app && yarn dev",
-        "test_app": "cd test_app && yarn dev",
-        "tests": "cd test_app && yarn test"
+        "tests": "yarn test:app",
+        "test:app": "pytest tests/app"
     }
 }
