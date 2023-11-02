@@ -7,10 +7,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class ENV_VARIABLES_Settings(BaseSettings):
     APP_ENV: str
     APP_ENABLED: str
-    OPENAI_API_KEY: str
+    # OPENAI_API_KEY: str
     OPENAI_API_KEY_DEV: str
-    OPENAI_API_KEY_PROD: str
-    OPENAI_ORG_ID: str
+    # OPENAI_API_KEY_PROD: str
+    # OPENAI_ORG_ID: str
     FIREBASE_ACCOUNT_TYPE: str
     FIREBASE_PROJECT_ID: str
     FIREBASE_PRIVATE_KEY: str
