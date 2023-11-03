@@ -1,5 +1,6 @@
 from enum import Enum
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, datetime_parse
+from datetime import datetime
 
 from app.models.conversation import ConversationModel
 
@@ -20,8 +21,8 @@ class UserModel(BaseModel):
     role: UserRole = UserRole.USER
     active: bool = True
     auth_type: UserAuthType = UserAuthType.EMAIL_PASSWORD
-    created_at: str 
-    updated_at: str
+    created_at: datetime
+    updated_at: datetime
 
 class UserPrivateModel(UserModel):
     password: str | None = None
