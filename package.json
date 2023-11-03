@@ -8,7 +8,11 @@
         "push": "git push origin dev",
         "deploy": "git push heroku dev:master",
         "logs":"heroku logs --tail",
-        "tests": "yarn test:app",
-        "test:app": "pytest tests/app"
+        "test": "yarn test:app",
+        "test:all": "yarn test:app && yarn test:db && yarn test:integrations && test:unit",
+        "test:app": "pytest tests/test_app.py",
+        "test:db": "PYTHONPATH=. pytest tests/unit/db",
+        "test:integrations": "PYTHONPATH=. pytest tests/integrations",
+        "test:unit": "PYTHONPATH=. pytest tests/unit"
     }
 }
