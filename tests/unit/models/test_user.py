@@ -3,7 +3,7 @@ from tests.fixtures.models.user import user_data, user_private_data
 
 def test_user_instanciated():
     user = UserModel(**user_data)
-    user_private = UserPrivateModel(**user_data, password=user_private_data["password"])
+    user_private = UserPrivateModel(**user_data, password = user_private_data["password"])
     assert user.id == user_private.id
     assert user.name == user_private.name
     assert user.email == user_private.email
