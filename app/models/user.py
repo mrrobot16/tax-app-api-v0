@@ -1,17 +1,8 @@
-from enum import Enum
-from pydantic import BaseModel, EmailStr, datetime_parse
+from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
 from app.models.conversation import ConversationModel
-
-class UserRole(Enum):
-    ADMIN = 'admin'
-    USER = 'user'
-    SYSTEM = 'system'
-    ASSISTANT = 'assistant'
-
-class UserAuthType(Enum): 
-    EMAIL_PASSWORD = 'email-password'
+from app.enums.user  import UserRole, UserAuthType
 
 class UserModel(BaseModel):
     id: str
