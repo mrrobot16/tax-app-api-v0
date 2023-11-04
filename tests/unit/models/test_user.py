@@ -1,5 +1,5 @@
 from app.models.user import UserModel, UserPrivateModel
-from tests.fixtures.models.user import user_data, user_private_data
+from tests.fixtures.user import user_data, user_private_data
 
 def test_user_instanciated():
     user = UserModel(**user_data)
