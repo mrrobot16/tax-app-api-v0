@@ -18,3 +18,11 @@ firebase_admin.initialize_app(credentials)
 # NOTE: Firestore database instance
 client = firestore.client()
 firestore_db  = client
+
+# NOTE: Using firestore_db need to define a collection for: 
+# - "users"
+# - "conversations"
+
+# Collections
+users_collection = firestore_db.collection('users')
+conversations_collection = firestore_db.collection('conversations')
