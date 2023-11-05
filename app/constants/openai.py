@@ -1,3 +1,5 @@
+from fastapi import status
+
 from app.config import env_variables
 from app.enums.user import UserRole
 from app.enums.openai import OpenAIModel
@@ -132,7 +134,7 @@ OPENAI_MAX_TOKENS = 1000
 
 OPENAI_CHAT_COMPLETION_ENDPOINT_ERROR  = { 
     'message': "Missing prompt and engine in the request",
-    'status_code': 400
+    'status_code': status.HTTP_400_BAD_REQUEST
 }
 
 OPENAI_API_KEY_DEV = env_variables.OPENAI_API_KEY_DEV
