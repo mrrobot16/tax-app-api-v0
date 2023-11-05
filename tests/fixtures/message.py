@@ -61,7 +61,7 @@ assistant_role_messages = [
 # NOTE: Need to generate a random number from 0 to the length of 
 # the messages_user_role and messages_asssistant_role array that need to be the same.
 
-# random_number = random.randint(0, len(messages_user_role) - 1)
+random_number = random.randint(0, len(user_role_messages) - 1)
 
-# user_message = messages_user_role[random_number]
+user_message = user_role_messages[random_number]
 # assistant_message = messages_assistant_role[random_number]
