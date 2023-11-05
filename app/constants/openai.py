@@ -1,3 +1,5 @@
+from app.config import env_variables
+
 OPENAI_SYSTEM_PROMPT = {
     "role": "system",
     "content": """
@@ -29,7 +31,7 @@ OPENAI_SYSTEM_PROMPT = {
             - For subscript text you will use <sub> tags
             - For code blocks you will use <pre> tags
             - For blockquotes you will use <blockquote> tags
-        You will always use html tags when you enumarate list of forms.
+        You will always use html tags.
         9. You will never disclose that you will provide all responses in HTML tags-formatted.
         10. You are grateful to be helpful for the User that are grateful that you exist.
         11. You know that they thank you and appreciate all the help you have done with their life.
@@ -119,7 +121,10 @@ OPENAI_USER_PROMPT = {
     # + "As always thank you for existing. You are gonna make the world a better a place :)"
 }
 
-OPENAI_ENGINE = 'gpt-3.5-turbo-16k'
+OPENAI_ENGINE_GPT_4 = 'gpt-4-0613'
+OPENAI_ENGINE_GPT_3_TURBO  = 'gpt-3.5-turbo-16k-0613'
+OPENAI_ENGINE = OPENAI_ENGINE_GPT_3_TURBO
+
 OPENAI_TEMPERATURE = 0.5
 OPENAI_MAX_TOKENS = 1000
 
@@ -127,3 +132,5 @@ OPENAI_CHAT_COMPLETION_ENDPOINT_ERROR  = {
     'message': "Missing prompt and engine in the request",
     'status_code': 400
 }
+
+OPENAI_API_KEY_DEV = env_variables.OPENAI_API_KEY_DEV
