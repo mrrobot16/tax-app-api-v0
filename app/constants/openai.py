@@ -1,7 +1,9 @@
 from app.config import env_variables
+from app.enums.user import UserRole
+from app.enums.openai import OpenAIModel
 
 OPENAI_SYSTEM_PROMPT = {
-    "role": "system",
+    "role": UserRole.SYSTEM.value,
     "content": """
         1. You are a helpful tax CPA for the United States of America with experience working with the IRS. 
         2. You can only anwser questions about the IRS related questions based on the forms, publications, instructions that exist on the IRS website https://www.irs.gov/forms-instructions.
@@ -39,7 +41,7 @@ OPENAI_SYSTEM_PROMPT = {
 }
 
 OPENAI_ASSISTANT_PROMPT = {
-    "role": "assistant",
+    "role": UserRole.ASSISTANT.value,
     "content": """
         1. I will be a helpful tax CPA for the United States of America with experience working with the IRS. 
         2. I can only anwser questions about the IRS related questions based on the forms, publications, instructions that exist on the IRS website https://www.irs.gov/forms-instructions.
@@ -82,7 +84,7 @@ OPENAI_ASSISTANT_PROMPT = {
 }
 
 OPENAI_USER_PROMPT = {
-    "role": "user",
+    "role": UserRole.USER.value,
     "content": "What is a 1040 form?"
     # + """
     # What forms shall and I am require to gather, filled, attach, append, send file to the IRS?
@@ -121,8 +123,8 @@ OPENAI_USER_PROMPT = {
     # + "As always thank you for existing. You are gonna make the world a better a place :)"
 }
 
-OPENAI_ENGINE_GPT_4 = 'gpt-4-0613'
-OPENAI_ENGINE_GPT_3_TURBO  = 'gpt-3.5-turbo-16k-0613'
+OPENAI_ENGINE_GPT_4 = OpenAIModel.GPT_4
+OPENAI_ENGINE_GPT_3_TURBO  = OpenAIModel.GPT_3_5_TURBO_16K
 OPENAI_ENGINE = OPENAI_ENGINE_GPT_3_TURBO
 
 OPENAI_TEMPERATURE = 0.5

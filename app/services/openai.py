@@ -16,7 +16,7 @@ class OpenAIService:
     def chat_completion(
             self,
             prompt = OPENAI_USER_PROMPT['content'], 
-            engine = OPENAI_ENGINE,
+            engine = OPENAI_ENGINE.value,
             system_prompt = OPENAI_SYSTEM_PROMPT, 
             assistant_prompt = OPENAI_ASSISTANT_PROMPT,
             temperature = OPENAI_TEMPERATURE,  
