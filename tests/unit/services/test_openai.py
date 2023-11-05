@@ -4,7 +4,9 @@ from tests.fixtures.openai import openai_service
 from tests.fixtures.message import user_message
 
 def test_chat_completion_gpt3(openai_service):
-    response = openai_service.chat_completion(OpenAIModel.GPT_3_5_TURBO_16K.value)
+    response = openai_service.chat_completion(
+        engine = OpenAIModel.GPT_3_5_TURBO_16K.value
+    )
     assert response is not None
     assert len(response.choices) > 0
     assert response.choices[0].message is not None
