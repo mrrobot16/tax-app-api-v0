@@ -5,12 +5,12 @@ metadata = {
     "summary": "",
     "contact": {
         "name": "Tax App Chat",
-        "url": "",
+        "url": "http://taxapp.chat/contact",
         "email": "hello@taxapp.chat",
     },
     "license_info": {
         "name": "",
-        "url": "",
+        "url": "http://taxapp.chat/license",
         "identifier": "MIT",
     },
     "terms_of_service": "http://taxapp.chat/terms/",
