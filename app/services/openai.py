@@ -42,3 +42,6 @@ class OpenAIService:
             return openai_response_model
         except Exception as error:
             return f"chat_completion error: {error}"
+        
+def openai_service():
+    return OpenAIService()
