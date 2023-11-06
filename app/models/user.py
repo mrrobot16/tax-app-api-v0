@@ -11,8 +11,8 @@ class UserModel(BaseModel):
     email: EmailStr
     conversations: List[ConversationModel] = []
     active: bool = True
-    auth_type: UserAuthType = Field(default = UserAuthType.EMAIL_PASSWORD, alias = 'auth_type')
-    role: UserRole = Field(default = UserRole.USER, alias = 'role')
+    auth_type: UserAuthType = Field(default = 'email-password', alias = 'auth_type')
+    role: UserRole = Field(default = 'user', alias = 'role')
     created_at: datetime
     updated_at: datetime
 
