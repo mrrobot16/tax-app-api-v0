@@ -1,5 +1,14 @@
 import random
+import pytest
+
+from app.services.user import UserService
 from app.utils import generate_unique_id, generate_timestamp
+
+
+@pytest.fixture
+def user_service():
+    service = UserService
+    yield service
 
 # user_id = generate_unique_id()
 user_id = "cefece6f-3a77-493c-b"

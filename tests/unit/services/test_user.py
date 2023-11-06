@@ -1,40 +1,63 @@
-import time
-import random
+import warnings
 
-from db.firebase import firestore_db, firestore
-from services.user import get_users, new_user, get_user, update_user, delete_user, deactivate_user, activate_user
-from tests.fixtures.models.user import emails
+from tests.fixtures.user import user_data, user_private_data, user_service
+from app.models.user import UserModel
+from app.enums.user import UserRole, UserAuthType
+from app.utils import hash_password
+from app.constants import filter_warning_message
 
-random_email = emails[random.randint(0, len(emails) - 1)]
-id = "cefece6f-3a77-493c-b"
-
-def test_get_users():
-    users = get_users()
+def test_get_all(user_service):
+    users = user_service.get_all()
+    assert users is not None
     assert len(users) > 0
 
-def test_get_user():
-    user = get_user(id)
-    assert user["id"] == id
+def test_get(user_service):
+    warnings.filterwarnings("ignore", category = UserWarning, message = filter_warning_message)
+    user = user_service.get(user_data["id"])
+    user_model = UserModel(**user)
+    assert user_model is not None
+    assert user_model.id == user_data["id"]
 
-def test_new_user():
-    email = "testing_new_user_service@testing.com"
-    user = new_user("testing_new_user_service@testing.com", None)
-    assert user["email"] == "testing_new_user_service@testing.com"
+def _test_new(user_service):
+    user = user_service.new(
+        email = user_data["email"], 
+        name = user_data["name"], 
+        password = user_private_data["password"],
+        role = "user",
+        auth_type = "email-password"
+    )
+    assert user is not None
+    assert user["id"] is not None
+    assert user["name"] == user_data["name"]
+    assert user["email"] == user_data["email"]
+    assert user["role"] == UserRole.USER.value
+    assert user["conversations"] == []
+    assert user["auth_type"] == UserAuthType.EMAIL_PASSWORD.value
+    assert user["created_at"] is not None
+    assert user["updated_at"] is not None
 
-def test_update_user():
-    email = random_email
-    user = update_user(id, email)
-    assert user["email"] == email
+def test_update(user_service):
+    update_data = {
+        "name": user_data["name"],
+        "email": user_data["email"]
+    }
+    user = user_service.update(
+        user_data["id"],
+        update_data
+    )
+    assert user is not None
+    assert user["id"] is not None
+    assert user["name"] == update_data["name"]
+    assert user["email"] == update_data["email"]
 
-def test_deactivate_user():
-    user = deactivate_user(id)
+def test_deactivate(user_service):
+    user = user_service.deactivate(user_data["id"])
+    assert user is not None
+    assert user["id"] is not None
     assert user["active"] == False
 
-def test_activate_user():
-    time.sleep(3)
-    user = activate_user(id)
+def test_activate(user_service):
+    user = user_service.activate(user_data["id"])
+    assert user is not None
+    assert user["id"] is not None
     assert user["active"] == True
-
-# Not really needing to test this, but it's nice to have.
-# def test_delete_user(id):
-#     return user.delete(id)
