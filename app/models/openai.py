@@ -1,5 +1,11 @@
 from pydantic import BaseModel
 
+from app.enums.openai import OpenAIModel
+class OpenAIChatCompletionRequestModel(BaseModel):
+    model: OpenAIModel = OpenAIModel.GPT_4 
+    content: str
+    role: str = "user"
+
 # NOTE: The current response for ChatCompletion is formatted like this.
 class OpenAIChatCompletionResponseModel(BaseModel):
     id: str # str ie: "chatcmpl-89jaHxop3jAcGGTzeSZhpoJzP1g0y"
