@@ -1,6 +1,8 @@
 from fastapi import FastAPI, status
 
 from app.metadata import metadata
+from app.routes import configure_routes
+from app.middleware import configure_middleware
 
 app = FastAPI(
     title = metadata["title"],
@@ -18,7 +20,8 @@ app = FastAPI(
 
 @app.get("/")
 async def health():
-    return {"status": status.HTTP_200_OK }
+    return {"status": status.HTTP_200_OK, "version": "0.0.1" }
 
-
+configure_middleware(app)
+configure_routes(app)
 
