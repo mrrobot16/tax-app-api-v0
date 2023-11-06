@@ -14,3 +14,6 @@ class OpenAIChatCompletionResponseModel(BaseModel):
     model: str # str ie: "gpt-4"
     choices: list # array [ { index: int, message: { role: str ie: assistant, content: str }, finish_reason: str } ]
     usage: dict # dict { prompt_tokens: int, completion_tokens: int, total_tokens: int }
+
+class OpenAIChatCompletionAPIResponseModel(BaseModel):
+    message: dict # dict { role: str ie: assistant, content: str }

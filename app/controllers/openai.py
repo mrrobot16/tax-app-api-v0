@@ -11,7 +11,7 @@ openai_controller = APIRouter()
 @openai_controller.post("/chat-completion")
 def chat_gpt4(request: OpenAIChatCompletionRequestModel) -> OpenAIChatCompletionResponseModel:
     chat_completion_response = openai_service().chat_completion(prompt = request.content)
-    return JSONResponse(content = chat_completion_response.model_dump())
+    return JSONResponse(content = chat_completion_response)
 
 @openai_controller.get("/status")
 def check_openai_status():
