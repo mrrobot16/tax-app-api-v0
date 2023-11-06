@@ -42,6 +42,7 @@ class OpenAIService:
             message = response['choices'][0]['message']
             openai_api_response_model = OpenAIChatCompletionAPIResponseModel(message = message)
             openai_response_model = OpenAIChatCompletionResponseModel(**response)
+            print("openai_response_model", openai_response_model)
             # return openai_response_model
             return openai_api_response_model.model_dump()
         except Exception as error:
