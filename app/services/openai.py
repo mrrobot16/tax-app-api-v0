@@ -49,6 +49,6 @@ class OpenAIService:
                 'status': status.HTTP_400_BAD_REQUEST,
                 'message': f"chat_completion error: {error}"
             }
-        
+ 
 def openai_service():
     return OpenAIService()
