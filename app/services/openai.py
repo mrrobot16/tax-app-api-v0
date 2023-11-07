@@ -15,13 +15,13 @@ class OpenAIService:
         openai.api_key = keys
 
     def chat_completion(
-            self,
-            prompt = OPENAI_USER_PROMPT['content'], 
-            engine = OPENAI_ENGINE.value,
-            system_prompt = OPENAI_SYSTEM_PROMPT, 
-            assistant_prompt = OPENAI_ASSISTANT_PROMPT,
-            temperature = OPENAI_TEMPERATURE,  
-            max_tokens = OPENAI_MAX_TOKENS,
+        self,
+        prompt = OPENAI_USER_PROMPT['content'], 
+        engine = OPENAI_ENGINE.value,
+        system_prompt = OPENAI_SYSTEM_PROMPT, 
+        assistant_prompt = OPENAI_ASSISTANT_PROMPT,
+        temperature = OPENAI_TEMPERATURE,  
+        max_tokens = OPENAI_MAX_TOKENS,
     ):
         try:
             # NOTE: prompt.encode().decode() is used to remove non-ASCII characters from the prompt.
