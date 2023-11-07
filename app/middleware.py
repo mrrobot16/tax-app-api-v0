@@ -30,6 +30,7 @@ def configure_middleware(app: FastAPI):
     )
     @app.middleware("http")
     async def add_process_time_header(request: Request, call_next):
+        print('allowed_origins', allowed_origins)
         print(f"Request: {request.method} {request.url.path}")
         start_time = time.time()
         response = await call_next(request)
