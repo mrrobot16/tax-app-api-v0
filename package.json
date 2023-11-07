@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "uvicorn app.main:app --reload",
         "prod": "yarn prod:linux",
-        "prod:linux": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000",
+        "prod:linux": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000 --timeout 120",
         "session": "screen -S taxapp_api_session",
         "reattach": "screen -r taxapp_api_session",
         "heroku": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app",
