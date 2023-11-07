@@ -5,6 +5,7 @@
         "dev": "uvicorn app.main:app --reload",
         "prod": "uvicorn app.main:app",
         "heroku": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app",
+        "linux:server": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000",
         "push": "git push origin dev",
         "deploy": "git push heroku dev:master",
         "logs":"heroku logs --tail",
