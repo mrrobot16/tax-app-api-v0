@@ -3,9 +3,11 @@
     "license": "MIT",
     "scripts": {
         "dev": "uvicorn app.main:app --reload",
-        "prod": "uvicorn app.main:app",
+        "prod": "yarn linux:server",
+        "session": "screen -S taxapp_api_session",
+        "reattach": "screen -r taxapp_api_session",
         "heroku": "gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app",
-        "linux:server": "sudo lsof -t -i:8000 | xargs kill && gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000",
+        "linux:server": "sudo lsof -t -i:8000 | xargs kill && gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000 --reload",
         "push": "git push origin dev",
         "pull": "git pull origin dev",
         "deploy": "git push heroku dev:master",
