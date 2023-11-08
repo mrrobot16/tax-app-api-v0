@@ -1,18 +1,19 @@
+from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 
 from app.models.message import MessageGroupModel, MessageModel
-from app.utils import generate_timestamp
+from app.utils import generate_timestamp, generate_unique_id
 
 class ConversationModel(BaseModel):
-    id: str
+    id: str = generate_unique_id()
     user_id: str
     name: str
     messages: list[MessageModel] = []
     message_groups: list[MessageGroupModel] = []
     active: bool = True
-    created_at: datetime
-    updated_at: datetime
+    created_at: datetime = generate_timestamp()
+    updated_at: datetime = generate_timestamp()
 
     def add_message(self, message: MessageModel):
         self.messages.append(message)
