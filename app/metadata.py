@@ -15,14 +15,14 @@ metadata = {
     },
     "terms_of_service": "http://taxapp.chat/terms/",
     "tags": [
-        {
-            "name": "users",
-            "description": "",
-        },
-        {
-            "name": "conversations",
-            "description": "",
-        },
+        # {
+        #     "name": "users",
+        #     "description": "",
+        # },
+        # {
+        #     "name": "conversations",
+        #     "description": "",
+        # },
     ],
     "openapi_url": "/api/v1/openapi.json",
 }

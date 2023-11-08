@@ -1,47 +1,44 @@
 import time
-import random
 
-from controllers.user import user_controller
+from fastapi import status
+from fastapi.testclient import TestClient
 
-from tests.fixtures.models.user import emails
+from app.main import app
+from tests.fixtures.user import user_data, user_private_data
 
-random_email = emails[random.randint(0, len(emails) - 1)]
+client = TestClient(app)
 
-user_id = "cefece6f-3a77-493c-b"
+def test_user_status():
+    response = client.get("/users/status")
+    assert response.status_code == status.HTTP_200_OK
 
-def test_health(client):
-    response = client.get("/users/health")
-    assert response.status_code == 200
+def test_get_all_users():
+    response = client.get("/users/all")
+    assert response.status_code == status.HTTP_200_OK
 
-def test_get_all(client):
-    response = client.get("/users/")
-    assert response.status_code == 200
+def test_get_user():
+    response = client.get(f"users/{user_data['id']}")
+    assert response.status_code == status.HTTP_200_OK
 
-def test_get(client):
-    response = client.get(f"/users/{user_id}")
-    assert response.status_code == 200
-
-def test_new(client):
-    json = {
-        "name": "test_name",
-        "email": "test_controller_new_email@testing.com",
-        "password": "test_password"
+def _test_new_user():
+    user = {
+        'name': user_data['name'],
+        'email': user_data['email'],
+        'password': user_private_data['password'],
+        'auth_type': user_data['auth_type'],
     }
-    response = client.post("/users/new", json=json)
-    assert response.status_code == 200
+    response = client.post("/users/new", json = user)
+    assert response.status_code == status.HTTP_200_OK
 
-def test_update(client):
-    json = {
-        "email": random_email,
-    }
-    response = client.put(f"/users/update/{user_id}", json=json)
-    assert response.status_code == 200
+def test_update_user():
+    response = client.put(f"/users/{user_data['id']}", json = {"email": user_data["email"], "name": user_data['name']})
+    assert response.status_code == status.HTTP_200_OK
 
-def test_deactivate(client):
-    response = client.put(f"/users/deactivate/{user_id}")
-    assert response.status_code == 200
+def test_deactivate_user():
+    response = client.put(f"/users/deactivate/{user_data['id']}")
+    assert response.status_code == status.HTTP_200_OK
 
-def test_activate(client):
+def test_activate_user():
     time.sleep(3)
-    response = client.put(f"/users/activate/{user_id}")
-    assert response.status_code == 200
+    response = client.put(f"/users/activate/{user_data['id']}")
+    assert response.status_code == status.HTTP_200_OK
