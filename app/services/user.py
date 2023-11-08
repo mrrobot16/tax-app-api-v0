@@ -90,20 +90,22 @@ class UserService:
         user_ref = users_collection.document(id)
         user_ref.update({
             'active': False,
-            'update_at': generate_timestamp()
+            'updated_at': generate_timestamp()
         })
         # Retrieve the updated document
         user_doc = user_ref.get()
+        user = user_doc.to_dict()
         # Return the document data as a dictionary
-        return user_doc.to_dict()
+        return convert_doc_refs(user)
     
     def activate(id):
         user_ref = users_collection.document(id)
         user_ref.update({
             'active': True,
-            'update_at': generate_timestamp()
+            'updated_at': generate_timestamp()
         })
         # Retrieve the updated document
         user_doc = user_ref.get()
+        user = user_doc.to_dict()
         # Return the document data as a dictionary
-        return user_doc.to_dict()
+        return convert_doc_refs(user)
