@@ -8,6 +8,11 @@ def openai_service():
     service = OpenAIService()
     yield service
 
+openai_request_data = {
+	"content": "My client is single, currently employed by Company A as well as consulting contract for Company C. Bought X amount of stocks at Company D at price Y and sold such Company C stock the same year for Z price. X dollars where collected through saving accounts interest. Company stock F distributed X dollars in dividends. Client is shareholder of a s-corporation and c-corporation that had a net income and distributed dividends. Client owns a few properties that are currently rented through a property manager. Some of the propertities had an amortization and depreciation. One of the properties is under a mortgage with around 5% interest rate. Earlier this year one of the properties suffered damages from a natural disaster and had to do repairs, purchase new furnitures and appliances. Show a list of forms and URLs i need to fill, gather and file to the irs please",
+	"role": "user"
+}
+
 openai_response_data = {
     "id": "chatcmpl-8HOfMS2ZZCmYGry1Yz56PfUHks7zD",
     "object": OpenAIObjectType.CHAT_COMPLETION.value,
