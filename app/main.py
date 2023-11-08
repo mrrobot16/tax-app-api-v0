@@ -18,7 +18,7 @@ app = FastAPI(
     redoc_url="/documentation"
 )
 
-@app.get("/")
+@app.get("/", tags = ["Health"])
 async def health():
     return {"status": status.HTTP_200_OK, "version": "0.0.1" }
 
