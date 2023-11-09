@@ -7,7 +7,7 @@ from app.utils import generate_unique_id
 from tests.fixtures.user import user_data, user_id
 
 id = generate_unique_id()
-conversation_id = 'be61b227-b9e2-473a-8'
+conversation_id = '220bb6e8-4489-4ee0-a'
 conversation_data = {
     'id': id,
     'user_id': user_data['id'],
