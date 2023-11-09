@@ -1,6 +1,7 @@
 from typing import Dict, Optional
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
+from app.models.message import MessageModel
 
 from app.services.conversation import ConversationService
 from app.models.conversation import ConversationModel
@@ -12,9 +13,14 @@ def conversation_status():
     return JSONResponse(content = {"status": status.HTTP_200_OK, })
 
 @conversations_controller.get("/")
-def get_all_conversations():
+def get_conversations():
     conversations = ConversationService.get_all()
     return conversations
+
+@conversations_controller.get("/user/{user_id}")
+def get_conversations_by_user(user_id: str):
+    conversation = ConversationService.get_all_by_user(user_id)
+    return conversation
 
 @conversations_controller.get("/{id}")
 def get_conversation(id: str):
@@ -23,11 +29,18 @@ def get_conversation(id: str):
 
 @conversations_controller.post("/new")
 def new_conversation(conversation: ConversationModel):
-    conversation_data = {
-        "name": conversation.conversation
-    }
-    conversation = ConversationService.new(**conversation_data)
+    conversation = ConversationService.new(conversation)
     return conversation
+
+@conversations_controller.post("/new")
+def new_conversation(conversation: ConversationModel):
+    conversation = ConversationService.new(conversation)
+    return conversation
+
+@conversations_controller.post("/message/new/{id}")
+def new_message(message: MessageModel):
+    message = ConversationService.new_message(message)
+    return message
 
 @conversations_controller.put("/{id}")
 def update_conversation(id: str, data: Dict[str, Optional[str]]):
