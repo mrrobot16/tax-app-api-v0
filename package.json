@@ -15,11 +15,12 @@
         "pull": "git pull origin dev",
         "deploy": "git push heroku dev:master",
         "logs":"heroku logs --tail",
-        "test": "yarn test:app && yarn test:db",
-        "test:all": "yarn test:app && yarn test:db && yarn test:integrations && test:unit",
-        "test:app": "pytest tests/test_app.py",
+        "test": "yarn test:all",
+        "test:all": "yarn test:app && yarn test:db && yarn test:models && yarn test:services && yarn test:controllers",
+        "test:app": "PYTHONPATH=. pytest tests/test_app.py",
         "test:db": "PYTHONPATH=. pytest tests/unit/db",
-        "test:integrations": "PYTHONPATH=. pytest tests/integrations",
-        "test:unit": "PYTHONPATH=. pytest tests/unit"
+        "test:models": "PYTHONPATH=. pytest tests/unit/models",
+        "test:controllers": "PYTHONPATH=. pytest tests/integrations/controllers",
+        "test:services": "PYTHONPATH=. pytest tests/unit/services"
     }
 }
