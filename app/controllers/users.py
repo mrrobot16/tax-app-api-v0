@@ -6,23 +6,23 @@ from fastapi.responses import JSONResponse
 from app.models.user import UserModel, UserPrivateModel
 from app.services.user import UserService
 
-user_controller = APIRouter()
+users_controller = APIRouter()
 
-@user_controller.get("/status")
+@users_controller.get("/status")
 def user_status():
     return JSONResponse(content = {"status": status.HTTP_200_OK, })
 
-@user_controller.get("/all")
+@users_controller.get("/all")
 def get_all_users():
     users = UserService.get_all()
     return users
 
-@user_controller.get("/{id}")
+@users_controller.get("/{id}")
 def get_user(id: str):
     user = UserService.get(id)
     return user
 
-@user_controller.post("/new")
+@users_controller.post("/new")
 def new_user(user: UserPrivateModel):
     user_data = {
         "name": user.name,
@@ -33,7 +33,7 @@ def new_user(user: UserPrivateModel):
     user = UserService.new(**user_data)
     return user
 
-@user_controller.put("/{id}")
+@users_controller.put("/{id}")
 def update_user(id: str, data: Dict[str, Optional[str]]):
     # Validate that data only contains 'email' and 'name' keys are provided
     for key in data:
@@ -42,17 +42,17 @@ def update_user(id: str, data: Dict[str, Optional[str]]):
     user = UserService.update(id, data)
     return user
 
-# @user_controller.delete("/{id}")
+# @users_controller.delete("/{id}")
 # def delete_user(id: str):
 #     user = UserService.delete(id)
 #     return JSONResponse(content = user)
 
-@user_controller.put("/deactivate/{id}")
+@users_controller.put("/deactivate/{id}")
 def deactivate_user(id: str):
     user = UserService.deactivate(id)
     return user
 
-@user_controller.put("/activate/{id}")
+@users_controller.put("/activate/{id}")
 def activate_user(id: str):
     user = UserService.activate(id)
     return user
