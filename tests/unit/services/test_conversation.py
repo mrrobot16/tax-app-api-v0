@@ -1,10 +1,12 @@
 import warnings
 import time
 
-from tests.fixtures.conversation import conversation_data, conversation_service, conversation_id 
+from tests.fixtures.conversation import conversation_data, conversation_service, conversation_id
+from tests.fixtures.message import user_message
 from tests.fixtures.user import user_id
+from app.enums.user import UserRole
 from app.models.conversation import ConversationModel
-
+from app.models.message import MessageModel
 from app.constants import filter_warning_message
 
 def test_get_all(conversation_service):
@@ -28,7 +30,7 @@ def test_get(conversation_service):
     assert conversation_model is not None
     assert conversation_model.id == conversation_id
 
-def _test_new(conversation_service):
+def test_new(conversation_service):
     conversation_model = ConversationModel(**conversation_data)
     conversation = conversation_service.new(conversation_model)
 
@@ -41,6 +43,23 @@ def _test_new(conversation_service):
     assert conversation["active"] == True
     assert conversation["created_at"] is not None
     assert conversation["updated_at"] is not None
+
+def test_new_message(conversation_service):
+    message_data = {
+        "user_id": user_id,
+        "conversation_id": conversation_id,
+        **user_message,
+    }
+    message_model = MessageModel(**message_data)
+
+    message = conversation_service.new_message(message_model)
+
+    assert message is not None
+    assert message["id"] is not None
+    assert message["user_id"] == message_data["user_id"]
+    assert message["role"] == user_message["role"]
+    assert message["created_at"] is not None
+    assert message["updated_at"] is not None
 
 
 def test_update(conversation_service):

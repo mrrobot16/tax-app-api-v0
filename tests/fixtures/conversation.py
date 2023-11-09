@@ -1,11 +1,13 @@
 import pytest
+import random
 
+from app.enums.user import UserRole
 from app.services.conversation import ConversationService
 from app.utils import generate_unique_id
-from tests.fixtures.user import user_data
+from tests.fixtures.user import user_data, user_id
 
 id = generate_unique_id()
-conversation_id = '052a7d1e-fcef-457b-9'
+conversation_id = 'be61b227-b9e2-473a-8'
 conversation_data = {
     'id': id,
     'user_id': user_data['id'],
