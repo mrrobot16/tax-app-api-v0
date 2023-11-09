@@ -13,7 +13,7 @@ def user_status():
     return JSONResponse(content = {"status": status.HTTP_200_OK, })
 
 @users_controller.get("/")
-def get_all_users():
+def get_users():
     users = UserService.get_all()
     return users
 
