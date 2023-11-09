@@ -18,7 +18,7 @@ def test_get(user_service):
     assert user_model is not None
     assert user_model.id == user_data["id"]
 
-def _test_new(user_service):
+def test_new(user_service):
     user = user_service.new(
         email = user_data["email"], 
         name = user_data["name"], 
