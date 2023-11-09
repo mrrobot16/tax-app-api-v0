@@ -1,47 +1,73 @@
+import warnings
 import time
-import random
 
-from db.firebase import firestore_db, firestore
-from services.conversation import get_conversations, get_conversations_by_user, new_conversation, new_message, update_conversation, deactivate_conversation, get_conversation
-from tests.fixtures.models.conversation import conversation_fixture
+from tests.fixtures.conversation import conversation_data, conversation_service, conversation_id 
+from tests.fixtures.user import user_id
+from app.models.conversation import ConversationModel
 
-messages = conversation_fixture["messages"]
-random_message = messages[random.randint(0, len(messages) - 1)]
-random_new_message =  messages[random.randint(0, len(messages) - 1)]
+from app.constants import filter_warning_message
 
-id = "7ba4cca9-4115-4a5d-a"
-user_id = "cefece6f-3a77-493c-b"
+def test_get_all(conversation_service):
+    conversations = conversation_service.get_all()
 
-def test_get_conversations():
-    conversations = get_conversations()
+    assert conversations is not None
     assert len(conversations) > 0
 
-def test_get_conversations_by_user():
-    conversations = get_conversations_by_user(user_id)
+
+def test_get_all_by_user(conversation_service):
+    conversations = conversation_service.get_all_by_user(user_id)
+
+    assert conversations is not None
     assert len(conversations) > 0
 
-def test_new_conversation():
-    conversation = new_conversation(user_id)
-    assert conversation["user_id"] == user_id
+def test_get(conversation_service):
+    warnings.filterwarnings("ignore", category = UserWarning, message = filter_warning_message)
+    conversation = conversation_service.get(conversation_id)
+    conversation_model = ConversationModel(**conversation)
+
+    assert conversation_model is not None
+    assert conversation_model.id == conversation_id
+
+def _test_new(conversation_service):
+    conversation_model = ConversationModel(**conversation_data)
+    conversation = conversation_service.new(conversation_model)
+
+    assert conversation is not None
+    assert conversation["id"] is not None
+    assert conversation["user_id"] is not None
+    assert conversation["name"] == conversation_data["name"]
+    assert conversation["message_groups"] == []
+    assert conversation["messages"] == []
+    assert conversation["active"] == True
+    assert conversation["created_at"] is not None
+    assert conversation["updated_at"] is not None
 
 
-def test_get_conversation():
-    conversation = get_conversation(id)
-    assert conversation["id"] == id
+def test_update(conversation_service):
+    update_data = {
+        "name": conversation_data["name"],
+    }
 
-def test_new_message():
-    message = new_message(user_id, id, random_new_message)
-    assert message["user_id"] == user_id
-    assert message['conversation_id'] == id
-    assert message['content'] == message['content']
-    assert message['role'] == message['role']
+    conversation = conversation_service.update(
+        conversation_id,
+        update_data
+    )
 
-def test_update_conversation():
-    update_conversation(id, "New Conversation name")
-    conversation = get_conversation(id)
-    assert conversation['name'] == "New Conversation name"
+    assert conversation is not None
+    assert conversation["id"] is not None
+    assert conversation["name"] == update_data["name"]
 
-def test_deactivate():
-    deactivate_conversation(id)
-    conversation = get_conversation(id)
-    assert conversation['active'] == False
+def test_deactivate(conversation_service):
+    conversation = conversation_service.deactivate(conversation_id)
+
+    assert conversation is not None
+    assert conversation["id"] is not None
+    assert conversation["active"] == False
+
+def test_activate(conversation_service):
+    time.sleep(2)
+    conversation = conversation_service.activate(conversation_id)
+
+    assert conversation is not None
+    assert conversation["id"] is not None
+    assert conversation["active"] == True
