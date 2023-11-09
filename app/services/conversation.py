@@ -1,7 +1,7 @@
-from app.db.firebase import conversations_collection, firestore
+from app.db.firebase import conversations_collection, firestore, users_collection
 from app.models.conversation import ConversationModel
 from app.models.message import MessageModel
-from app.utils import generate_timestamp, generate_unique_id, hash_password
+from app.utils import generate_timestamp
 from app.utils.firebase import convert_doc_refs
 
 class ConversationService:
@@ -44,6 +44,11 @@ class ConversationService:
     def new(conversation: ConversationModel):
         conversation_ref = conversations_collection.document(conversation.id)
         conversation_ref.set(conversation.model_dump())
+
+        user_ref = users_collection.document(conversation.user_id)
+        user_ref.update({
+            'conversations': firestore.ArrayUnion([conversation_ref])
+        })
 
         # After setting the data, get the document back as a snapshot and convert it to a dictionary
         conversation_snapshot = conversation_ref.get()
