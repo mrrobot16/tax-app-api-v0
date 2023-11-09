@@ -7,7 +7,7 @@ from app.constants.openai import (
     OPENAI_ASSISTANT_PROMPT, OPENAI_SYSTEM_PROMPT, OPENAI_USER_PROMPT, 
     OPENAI_API_KEY_DEV
 )
-from app.models.openai import OpenAIChatCompletionResponseModel, OpenAIChatCompletionAPIResponseModel
+from app.models.openai import ChatCompletionResponseModel, OpenAIChatCompletionObjectResponseModel
 
 class OpenAIService:
 
@@ -40,10 +40,12 @@ class OpenAIService:
                 max_tokens = max_tokens
             )
             message = response['choices'][0]['message']
-            openai_api_response_model = OpenAIChatCompletionAPIResponseModel(message = message)
-            openai_response_model = OpenAIChatCompletionResponseModel(**response)
-            # return openai_response_model
-            return openai_api_response_model.model_dump()
+            openai_api_response_model = ChatCompletionResponseModel(message = message)
+            openai_response_model = OpenAIChatCompletionObjectResponseModel(**response)
+            return {
+                "api": openai_api_response_model.model_dump(),
+                "open_ai_chat_completion_api": openai_response_model.model_dump()
+            }
         except Exception as error:
             return {
                 'status': status.HTTP_400_BAD_REQUEST,

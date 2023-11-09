@@ -1,17 +1,18 @@
+from typing import Union
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 import requests
 
-from app.models.openai import OpenAIChatCompletionRequestModel, OpenAIChatCompletionResponseModel
+from app.models.openai import OpenAIChatCompletionObjectResponseModel, OpenAIChatCompletionRequestModel, ChatCompletionResponseModel
 from app.services.openai import openai_service
 from app.constants.openai import OPENAI_API_KEY_DEV
 
 openai_controller = APIRouter()
 
 @openai_controller.post("/chat-completion")
-def chat_gpt4(request: OpenAIChatCompletionRequestModel) -> OpenAIChatCompletionResponseModel:
+def chat_gpt4(request: OpenAIChatCompletionRequestModel) -> Union[OpenAIChatCompletionObjectResponseModel, ChatCompletionResponseModel]:
     chat_completion_response = openai_service().chat_completion(prompt = request.content)
-    return JSONResponse(content = chat_completion_response)
+    return JSONResponse(content = chat_completion_response['api'])
 
 @openai_controller.get("/status")
 def check_openai_status():
