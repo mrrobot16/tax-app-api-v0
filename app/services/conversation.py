@@ -1,5 +1,6 @@
-from app.db.firebase import conversations_collection
+from app.db.firebase import conversations_collection, firestore
 from app.models.conversation import ConversationModel
+from app.models.message import MessageModel
 from app.utils import generate_timestamp, generate_unique_id, hash_password
 from app.utils.firebase import convert_doc_refs
 
@@ -41,22 +42,8 @@ class ConversationService:
         return conversation_doc_ref
     
     def new(conversation: ConversationModel):
-        id = conversation.id  # Generate a unique 20-character ID
-        created_at = conversation.created_at  # Get current timestamp
-
-        conversation_data = {
-            'id': conversation.id,
-            'user_id': conversation.user_id,
-            'name': conversation.name,
-            'messages': conversation.messages,
-            'message_groups': conversation.message_groups,
-            'active': conversation.active,
-            'created_at': conversation.created_at,
-            'updated_at':conversation.updated_at
-        }
-
-        conversation_ref = conversations_collection.document(conversation_data["id"])
-        conversation_ref.set(conversation_data)
+        conversation_ref = conversations_collection.document(conversation.id)
+        conversation_ref.set(conversation.model_dump())
 
         # After setting the data, get the document back as a snapshot and convert it to a dictionary
         conversation_snapshot = conversation_ref.get()
@@ -64,6 +51,18 @@ class ConversationService:
             return conversation_snapshot.to_dict()
         else:
             return None
+        
+    def new_message(message: MessageModel):
+        conversation_ref = conversations_collection.document(message.conversation_id)
+        try:
+            conversation_ref.update({
+                'updated_at': generate_timestamp(),
+                'messages': firestore.ArrayUnion([message.model_dump()])
+            })
+            return message.model_dump()
+        except Exception as error:
+            print('error in services/conversation.py/new_message:', error)
+            return error
 
     # NOTE: Need to figure out a way to validate that data argument 
     # can only contain name
