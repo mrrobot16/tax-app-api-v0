@@ -1,10 +1,10 @@
 from typing import Dict, Optional
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, BackgroundTasks
 from fastapi.responses import JSONResponse
-from app.models.message import MessageModel
 
-from app.services.conversation import ConversationService
+from app.models.message import MessageModel
 from app.models.conversation import ConversationModel
+from app.services.conversation import ConversationService
 
 conversations_controller = APIRouter()
 
@@ -37,10 +37,15 @@ def new_conversation(conversation: ConversationModel):
     conversation = ConversationService.new(conversation)
     return conversation
 
-@conversations_controller.post("/message/new/{id}")
+@conversations_controller.post("/message/new")
 def new_message(message: MessageModel):
-    message = ConversationService.new_message(message)
+    message = ConversationService().new_message(message)
     return message
+
+@conversations_controller.post("/message/chat-completion")
+def new_chat_completion_message(message: MessageModel, tasks: BackgroundTasks):
+    chat_completion_response = ConversationService().new_chat_completion_message(message, tasks)
+    return chat_completion_response
 
 @conversations_controller.put("/{id}")
 def update_conversation(id: str, data: Dict[str, Optional[str]]):
