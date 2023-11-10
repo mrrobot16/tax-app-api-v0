@@ -5,7 +5,8 @@ from tests.fixtures.message import user_message
 
 def test_chat_completion_gpt3(openai_service):
     response = openai_service.chat_completion(
-        engine = OpenAIModel.GPT_3_5_TURBO_16K.value
+        engine = OpenAIModel.GPT_3_5_TURBO_16K.value,
+        prompt = user_message['content']
     )
     assert response is not None
 

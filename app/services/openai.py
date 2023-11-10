@@ -16,7 +16,7 @@ class OpenAIService:
 
     def chat_completion(
         self,
-        prompt = OPENAI_USER_PROMPT['content'], 
+        prompt, 
         engine = OPENAI_ENGINE.value,
         system_prompt = OPENAI_SYSTEM_PROMPT, 
         assistant_prompt = OPENAI_ASSISTANT_PROMPT,
@@ -49,7 +49,8 @@ class OpenAIService:
         except Exception as error:
             return {
                 'status': status.HTTP_400_BAD_REQUEST,
-                'message': f"chat_completion error: {error}"
+                'message': f"chat_completion error: {error}",
+                'error': error
             }
  
 def openai_service():
