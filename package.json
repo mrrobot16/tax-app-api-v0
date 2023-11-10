@@ -14,6 +14,7 @@
         "push": "git push origin dev",
         "pull": "git pull origin dev",
         "deploy": "git push heroku dev:master",
+        "install": "pip install -r requirements.txt",
         "logs":"heroku logs --tail",
         "test": "yarn test:all",
         "test:all": "yarn test:app && yarn test:db && yarn test:models && yarn test:services && yarn test:controllers",
