@@ -30,12 +30,24 @@ def configure_middleware(app: FastAPI):
     )
     @app.middleware("http")
     async def add_process_time_header(request: Request, call_next):
-        request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
-        print(request_message)
+        print(f"Request: {request.method} {request.url.path}")
         start_time = time.time()
         response = await call_next(request)
         process_time = time.time() - start_time
         response.headers["X-Process-Time"] = str(process_time)
-        response = f"Response status code: {response.status_code} X_Process_Time: {response.headers['X-Process-Time']}"
-        print(response)
+        print(f"Response: {response.status_code} {response.headers['X-Process-Time']}")
         return response
+    
+
+    # @app.middleware("http")
+    # async def add_process_time_header(request: Request, call_next):
+    #     request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
+    #     print(request_message)
+    #     start_time = time.time()
+    #     response = await call_next(request)
+    #     process_time = time.time() - start_time
+    #     response.headers["X-Process-Time"] = str(process_time)
+    #     response = f"Response status code: {response.status_code} X_Process_Time: {response.headers['X-Process-Time']}"
+    #     print(response)
+    #     return response
+
