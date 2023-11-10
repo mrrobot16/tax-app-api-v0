@@ -1,8 +1,10 @@
+from fastapi import BackgroundTasks
 from app.db.firebase import conversations_collection, firestore, users_collection
 from app.models.conversation import ConversationModel
 from app.models.message import MessageModel
 from app.utils import generate_timestamp
 from app.utils.firebase import convert_doc_refs
+from app.services.openai import OpenAIService
 
 class ConversationService:
 
@@ -57,7 +59,7 @@ class ConversationService:
         else:
             return None
         
-    def new_message(message: MessageModel):
+    def new_message(self, message: MessageModel):
         conversation_ref = conversations_collection.document(message.conversation_id)
         try:
             conversation_ref.update({
@@ -68,6 +70,13 @@ class ConversationService:
         except Exception as error:
             print('error in services/conversation.py/new_message:', error)
             return error
+
+    def new_chat_completion_message(self, message: MessageModel, tasks: BackgroundTasks):
+        chat_completion_message = OpenAIService().chat_completion(message.content)
+        chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
+        tasks.add_task(self.new_message, message)
+        tasks.add_task(self.new_message, chat_completion_message_model)
+        return chat_completion_message
 
     # NOTE: Need to figure out a way to validate that data argument 
     # can only contain name
