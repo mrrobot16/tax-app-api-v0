@@ -37,6 +37,7 @@ def configure_middleware(app: FastAPI):
         print(request_message)
         start_time = time.time()
         response = await call_next(request)
+        print("call_next(request)")
         process_time = time.time() - start_time
         response_message = {
             "Response_Status_Code": response.status_code,
