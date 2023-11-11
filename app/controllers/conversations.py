@@ -29,12 +29,7 @@ def get_conversation(id: str):
 
 @conversations_controller.post("/new")
 def new_conversation(conversation: ConversationModel):
-    conversation = ConversationService.new(conversation)
-    return conversation
-
-@conversations_controller.post("/new")
-def new_conversation(conversation: ConversationModel):
-    conversation = ConversationService.new(conversation)
+    conversation = ConversationService().new(conversation)
     return conversation
 
 @conversations_controller.post("/message/new")
