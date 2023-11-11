@@ -22,8 +22,8 @@ def get_user(id: str):
     user = UserService.get(id)
     return user
 
-@users_controller.post("/new")
-def new_user(user: UserPrivateModel):
+@users_controller.post("/new", response_model = UserModel)
+def new_user(user: UserPrivateModel) -> UserModel:
     user_data = {
         "name": user.name,
         "email": user.email,
