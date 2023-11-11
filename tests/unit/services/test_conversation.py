@@ -128,7 +128,6 @@ def test_new_conversation_chat_completion_message(tasks):
     conversation_service = ConversationService()
     conversation_model = ConversationModel(user_id = conversation_data['user_id'])
     message_data = {
-        "conversation_id": conversation_model.id,
         "user_id": conversation_model.user_id,
         **user_message,
     }
