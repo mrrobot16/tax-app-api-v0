@@ -125,11 +125,11 @@ def test_new_chat_completion_message(tasks):
     assert message['content'] is not None
 
 def test_new_conversation_chat_completion_message(tasks):
-    conversation_model = ConversationModel(**conversation_data)
     conversation_service = ConversationService()
+    conversation_model = ConversationModel(user_id = conversation_data['user_id'])
     message_data = {
-        "user_id": user_id,
-        "conversation_id": conversation_id,
+        "conversation_id": conversation_model.id,
+        "user_id": conversation_model.user_id,
         **user_message,
     }
     message_model = MessageModel(**message_data)

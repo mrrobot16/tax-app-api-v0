@@ -6,8 +6,8 @@ from app.utils import generate_timestamp, generate_unique_id
 
 class ConversationModel(BaseModel):
     id: str = generate_unique_id()
-    user_id: str
-    name: str
+    user_id: str # Only required field.
+    name: str = "New Chat"
     messages: list[MessageModel] = []
     message_groups: list[MessageGroupModel] = []
     active: bool = True

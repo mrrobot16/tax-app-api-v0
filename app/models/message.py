@@ -8,9 +8,9 @@ from app.utils import generate_timestamp, generate_unique_id
 
 class MessageModel(BaseModel):
     id: str = generate_unique_id()
-    user_id: str
-    conversation_id: str
-    content: str
+    user_id: str # required field.
+    conversation_id: str | None
+    content: str # required field.
     role: UserRole = Field(default = 'user', alias = 'role')
     created_at: datetime = generate_timestamp()
     updated_at: datetime = generate_timestamp()
