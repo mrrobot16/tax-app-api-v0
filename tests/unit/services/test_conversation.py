@@ -123,3 +123,31 @@ def test_new_chat_completion_message(tasks):
     assert message is not None
     assert message['role'] == UserRole.ASSISTANT.value
     assert message['content'] is not None
+
+def test_new_conversation_chat_completion_message(tasks):
+    conversation_model = ConversationModel(**conversation_data)
+    conversation_service = ConversationService()
+    message_data = {
+        "user_id": user_id,
+        "conversation_id": conversation_id,
+        **user_message,
+    }
+    message_model = MessageModel(**message_data)
+    
+    response = conversation_service.new_conversation_chat_completion_message(conversation_model, message_model, tasks)
+    assert response is not None
+    
+    open_ai_chat_completion_api = response['open_ai_chat_completion_api']
+    assert len(open_ai_chat_completion_api['choices']) > 0
+    assert open_ai_chat_completion_api['choices'][0]['message'] is not None
+    assert open_ai_chat_completion_api['choices'][0]['message']['role'] == UserRole.ASSISTANT.value
+    assert open_ai_chat_completion_api['choices'][0]['message']['content'] is not None
+    assert open_ai_chat_completion_api['object'] == OpenAIObjectType.CHAT_COMPLETION.value
+    assert open_ai_chat_completion_api['model'] == OpenAIModel.GPT_4_1106_PRE.value
+
+    api = response['api']
+    message = api['message']
+    assert api is not None
+    assert message is not None
+    assert message['role'] == UserRole.ASSISTANT.value
+    assert message['content'] is not None
