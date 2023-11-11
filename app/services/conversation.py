@@ -43,7 +43,7 @@ class ConversationService:
         conversation_doc_ref = convert_doc_refs(conversation)
         return conversation_doc_ref
     
-    def new(conversation: ConversationModel):
+    def new(self, conversation: ConversationModel):
         conversation_ref = conversations_collection.document(conversation.id)
         conversation_ref.set(conversation.model_dump())
 
@@ -58,7 +58,7 @@ class ConversationService:
             return conversation_snapshot.to_dict()
         else:
             return None
-        
+
     def new_message(self, message: MessageModel):
         conversation_ref = conversations_collection.document(message.conversation_id)
         try:
