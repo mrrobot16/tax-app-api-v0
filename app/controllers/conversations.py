@@ -32,6 +32,11 @@ def new_conversation(conversation: ConversationModel):
     conversation = ConversationService().new(conversation)
     return conversation
 
+@conversations_controller.post("/new/message/chat-completion")
+def new_conversation_chat_completion_message(conversation: ConversationModel, message: MessageModel, tasks: BackgroundTasks):
+    chat_completion_response = ConversationService().new_conversation_chat_completion_message(conversation, message, tasks)
+    return chat_completion_response
+
 @conversations_controller.post("/message/new")
 def new_message(message: MessageModel):
     message = ConversationService().new_message(message)

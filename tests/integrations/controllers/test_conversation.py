@@ -32,6 +32,18 @@ def _test_new():
     response = client.post(f"/conversations/new", json = conversation_data)
     assert response.status_code == 200
 
+def test_new_conversation_chat_completion_message():
+    json = {
+        "conversation": conversation_data,
+        "message": {
+            "user_id": user_id,
+            "conversation_id": conversation_data["id"],
+            **user_message
+        },
+    }
+    response = client.post("/conversations/new/message/chat-completion", json = json)
+    assert response.status_code == 200
+
 def test_new_message():
     json = {
         "user_id": user_id,
