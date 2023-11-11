@@ -34,10 +34,11 @@ def _test_new():
 
 def test_new_conversation_chat_completion_message():
     json = {
-        "conversation": conversation_data,
+        "conversation": {
+            "user_id": user_id,
+        },
         "message": {
             "user_id": user_id,
-            "conversation_id": conversation_data["id"],
             **user_message
         },
     }
