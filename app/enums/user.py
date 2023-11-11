@@ -8,3 +8,4 @@ class UserRole(Enum):
 
 class UserAuthType(Enum): 
     EMAIL_PASSWORD = 'email-password'
+    LOCAL = 'local'
