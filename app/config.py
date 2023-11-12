@@ -23,3 +23,5 @@ class ENV_VARIABLES(BaseSettings):
         env_file = ".env"
 
 env_variables = ENV_VARIABLES()
+
+APP_ENABLED = env_variables.APP_ENABLED

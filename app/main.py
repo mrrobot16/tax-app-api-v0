@@ -4,6 +4,8 @@ from app.metadata import metadata
 from app.routes import configure_routes
 from app.middleware import configure_middleware
 
+from app.config import APP_ENABLED
+
 app = FastAPI(
     title = metadata["title"],
     description = metadata["description"],
@@ -20,7 +22,7 @@ app = FastAPI(
 
 @app.get("/", tags = ["Health"])
 async def health():
-    return {"status": status.HTTP_200_OK, "version": "0.0.1" }
+    return {"status": status.HTTP_200_OK, "version": "0.0.1", "APP_ENABLED": APP_ENABLED}
 
 configure_middleware(app)
 configure_routes(app)
