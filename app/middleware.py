@@ -11,13 +11,15 @@ if env_variables.APP_ENV == 'production':
         'https://www.taxapp.chat', 
         'http://www.taxapp.chat',
         'https://app.taxapp.chat',
-        'http://app.taxapp.chat'
+        'http://app.taxapp.chat',
+        'https://demo.taxapp.chat',
+        'http://demo.taxapp.chat',
     ]
 elif env_variables.APP_ENV == 'development':
     allowed_origins = [
     "http://localhost",
     "http://localhost:8080",
-    "http://localhost:3000"
+    "http://localhost:3000",
 ]
 
 def configure_middleware(app: FastAPI):
