@@ -26,8 +26,8 @@ def sentry_init():
 def configure_sentry(app):
     sentry_init()
         # Test sentry is up and running
-    @app.get("/sentry", tags = ["Sentry #1"])
-    async def sentry():
+    @app.get("/sentry-debug")
+    async def trigger_error():
         division_by_zero = 1 / 0
     @app.get("/sentry_is_working", tags = ["Sentry #2"])
     async def sentry_works():
