@@ -2,6 +2,7 @@
     "name": "irs-copilot-api",
     "license": "MIT",
     "scripts": {
+        "start": "yarn doppler:watch",
         "dev": "uvicorn app.main:app --reload",
         "prod": "yarn prod:linux",
         "doppler": "doppler run -- yarn prod:linux:reload",
