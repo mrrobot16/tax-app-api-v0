@@ -5,6 +5,7 @@ from app.routes import configure_routes
 from app.middleware import configure_middleware
 
 from app.config import APP_ENABLED
+from app.utils.sentry import sentry_init, configure_sentry
 
 app = FastAPI(
     title = metadata["title"],
@@ -24,6 +25,7 @@ app = FastAPI(
 async def health():
     return {"status": status.HTTP_200_OK, "version": "0.0.1", "APP_ENABLED": APP_ENABLED}
 
+configure_sentry(app)
 configure_middleware(app)
 configure_routes(app)
 
