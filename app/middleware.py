@@ -30,6 +30,8 @@ def configure_middleware(app: FastAPI):
     )
     @app.middleware("http")
     async def add_process_time_header(request: Request, call_next):
+        print("APP_ENV: ", env_variables.APP_ENV)
+        print("APP_ENABLED: ", env_variables.APP_ENABLED)
         request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
         print(request_message)
         start_time = time.time()
