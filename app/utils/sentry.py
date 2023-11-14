@@ -1,6 +1,13 @@
 import sentry_sdk
 
-dsn = "https://6109e8b98dd30fb722b3770de8ef54e7@o4506084321984512.ingest.sentry.io/4506210817277952"
+from app.config import APP_ENV
+
+dsn_prod = "https://0d5b4affa4bb6de26500adb548c89615@o4506084321984512.ingest.sentry.io/4506215990755328"
+dsn_dev = "https://6109e8b98dd30fb722b3770de8ef54e7@o4506084321984512.ingest.sentry.io/4506210817277952"
+
+dsn = dsn_prod if APP_ENV == 'production' else None
+dsn = dsn_dev if APP_ENV == 'development' else None
+
 traces_sample_rate = 1.0
 profiles_sample_rate = 1.0
 
@@ -26,7 +33,7 @@ def sentry_init():
 def configure_sentry(app):
     sentry_init()
         # Test sentry is up and running
-    @app.get("/sentry-debug")
+    @app.get("/sentry-debug", tags = ["Sentry #1"])
     async def trigger_error():
         division_by_zero = 1 / 0
     @app.get("/sentry_is_working", tags = ["Sentry #2"])

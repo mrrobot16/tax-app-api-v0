@@ -24,4 +24,5 @@ class ENV_VARIABLES(BaseSettings):
 
 env_variables = ENV_VARIABLES()
 
+APP_ENV = env_variables.APP_ENV
 APP_ENABLED = env_variables.APP_ENABLED
