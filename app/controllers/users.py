@@ -20,6 +20,8 @@ def get_users():
 @users_controller.get("/{id}")
 def get_user(id: str):
     user = UserService.get(id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return user
 
 @users_controller.post("/new", response_model = UserModel)
