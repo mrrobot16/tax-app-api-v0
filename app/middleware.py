@@ -37,6 +37,7 @@ def configure_middleware(app: FastAPI):
         request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
         print(request_message)
         start_time = time.time()
+        print(f"Request timestamp: {start_time}")
         response = await call_next(request)
         process_time = time.time() - start_time
         response.headers["X-Process-Time"] = str(process_time)
