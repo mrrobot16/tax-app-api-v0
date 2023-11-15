@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -32,15 +33,18 @@ def configure_middleware(app: FastAPI):
     )
     @app.middleware("http")
     async def add_process_time_header(request: Request, call_next):
-        print("APP_ENV: ", env_variables.APP_ENV)
-        print("APP_ENABLED: ", env_variables.APP_ENABLED)
+        start_time = time.time()
         request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
         print(request_message)
-        start_time = time.time()
-        print(f"Request timestamp: {start_time}")
+
+        current_utc_time = datetime.utcnow()
+        formatted_utc_time = current_utc_time.strftime("%Y-%m-%d %H:%M:%S")      
+        print(f"Request UTC timestamp: {formatted_utc_time}")
+
         response = await call_next(request)
         process_time = time.time() - start_time
         response.headers["X-Process-Time"] = str(process_time)
         response_message = f"Response status code: {response.status_code} X_Process_Time: {response.headers['X-Process-Time']}"
         print(response_message)
+
         return response
