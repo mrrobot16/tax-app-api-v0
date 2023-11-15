@@ -33,6 +33,8 @@ def new_user(user: UserPrivateModel) -> UserModel:
         "auth_type": user.auth_type,
     }
     user = UserService.new(**user_data)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Guest user login failed, try")
     return user
 
 @users_controller.put("/{id}")

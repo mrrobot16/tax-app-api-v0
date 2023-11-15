@@ -57,7 +57,8 @@ class UserService:
         # return user_data
         # After setting the data, get the document back as a snapshot and convert it to a dictionary
         user_snapshot = user_ref.get()
-        if user_snapshot.exists:
+        user_exists = user_snapshot.exists
+        if user_exists:
             return user_snapshot.to_dict()
         else:
             return None
