@@ -4,6 +4,7 @@
     "scripts": {
         "start": "yarn doppler:watch",
         "dev": "uvicorn app.main:app --reload",
+        "doppler:dev": "doppler run -- yarn dev",
         "prod": "yarn prod:linux",
         "doppler": "doppler run -- yarn prod:linux:reload",
         "doppler:watch": "doppler run --watch -- yarn prod:linux:reload",
@@ -25,10 +26,10 @@
         "logs":"heroku logs --tail",
         "test": "yarn test:all",
         "test:all": "yarn test:app && yarn test:db && yarn test:models && yarn test:services && yarn test:controllers",
-        "test:app": "PYTHONPATH=. pytest tests/test_app.py",
-        "test:db": "PYTHONPATH=. pytest tests/unit/db",
-        "test:models": "PYTHONPATH=. pytest tests/unit/models",
-        "test:controllers": "PYTHONPATH=. pytest tests/integrations/controllers",
-        "test:services": "PYTHONPATH=. pytest tests/unit/services"
+        "test:app": "PYTHONPATH=./app pytest tests/test_app.py",
+        "test:db": "PYTHONPATH=./app pytest tests/unit/db",
+        "test:models": "PYTHONPATH=./app pytest tests/unit/models",
+        "test:controllers": "PYTHONPATH=./app pytest tests/integrations/controllers",
+        "test:services": "PYTHONPATH=./app pytest tests/unit/services"
     }
 }
