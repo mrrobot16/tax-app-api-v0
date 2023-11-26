@@ -9,9 +9,6 @@ from app.main import app
 
 client = TestClient(app)
 
-id = "7ba4cca9-4115-4a5d-a"
-user_id = "cefece6f-3a77-493c-b"
-
 def test_conversations_status():
     response = client.get("/conversations/status")
     assert response.status_code == 200

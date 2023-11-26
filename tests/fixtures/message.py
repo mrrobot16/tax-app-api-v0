@@ -28,23 +28,23 @@ user_role_messages = [
 assistant_role_messages = [
     {
         "content": "1040 for is for individual tax returns",
-        "role": UserRole.ASSISTANT,
+        "role": UserRole.ASSISTANT.value,
     },
     {
         "content": "1120 for is for s-corporation tax returns",
-        "role": UserRole.ASSISTANT,
+        "role": UserRole.ASSISTANT.value,
     },
     {
         "content": "1099-NEC is to report nonemployee compensation",
-        "role": UserRole.ASSISTANT,
+        "role": UserRole.ASSISTANT.value,
     },
     {
         "content": "Schedule C to report income or (loss) from a business you operated or a profession you practiced as a sole proprietor",
-        "role": UserRole.ASSISTANT,
+        "role": UserRole.ASSISTANT.value,
     },
     {
         "content": "1099-INT to report interest income received",
-        "role": UserRole.ASSISTANT,
+        "role": UserRole.ASSISTANT.value,
     }
 ]
 
