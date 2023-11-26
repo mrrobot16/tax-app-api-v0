@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    container_name: tax-app-api-v0
+    ports:
+      - "8000" # Map port 8080 on the host to 8000 in the container
+    volumes:
+      - ./app:/app # Map the local 'app' directory to '/app' in the container
+    environment:
+      - DOPPLER_TOKEN
+    entrypoint: ["doppler", "run", "--"]
+    # The command here overrides the CMD in Dockerfile, use with caution
+    # command: uvicorn main:app --reload
+    command: ["uvicorn", "main:app", "--reload"]
