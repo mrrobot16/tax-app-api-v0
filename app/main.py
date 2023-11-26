@@ -23,7 +23,13 @@ app = FastAPI(
 
 @app.get("/", tags = ["Health"])
 async def health():
-    return {"status": status.HTTP_200_OK, "version": "0.0.1", "APP_ENABLED": APP_ENABLED, "APP_ENV": APP_ENV}
+    return {
+        "status": status.HTTP_200_OK, 
+        "version": "0.0.1", 
+        "APP_ENABLED": APP_ENABLED, 
+        "APP_ENV": APP_ENV,
+        "BEFORE_LAST_GIT_COMMIT_": "09de708bed4c9325389bdfa061adc480cab97c94"
+    }
 
 configure_sentry(app)
 configure_middleware(app)
