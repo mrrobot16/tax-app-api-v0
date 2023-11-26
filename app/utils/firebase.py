@@ -1,4 +1,4 @@
-from app.db.firebase import firestore
+from db.firebase import firestore
 
 # NOTE: Recursively convert Firebase DocumentReference objects in a nested data structure to dictionaries.
 def convert_doc_refs(doc_refs):

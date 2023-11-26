@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.enums.openai import OpenAIModel
+from enums.openai import OpenAIModel
 class OpenAIChatCompletionRequestModel(BaseModel):
     model: OpenAIModel = OpenAIModel.GPT_4 
     content: str

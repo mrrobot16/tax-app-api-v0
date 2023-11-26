@@ -2,8 +2,8 @@ from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from typing import List, Optional
 
-from app.models.conversation import ConversationModel
-from app.enums.user import UserAuthType, UserRole
+from models.conversation import ConversationModel
+from enums.user import UserAuthType, UserRole
 
 class UserModel(BaseModel):
     id: Optional[str] = None

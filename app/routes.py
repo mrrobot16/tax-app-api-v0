@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from app.controllers.openai import openai_controller
-from app.controllers.users import users_controller
-from app.controllers.conversations import conversations_controller
+from controllers.openai import openai_controller
+from controllers.users import users_controller
+from controllers.conversations import conversations_controller
 
 def configure_routes(app: FastAPI):
     app.include_router(openai_controller, prefix="/openai", tags=["OpenAI Controller"])

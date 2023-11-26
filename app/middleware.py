@@ -3,7 +3,7 @@ from datetime import datetime
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import env_variables
+from config import env_variables
 
 if env_variables.APP_ENV == 'production':
     allowed_origins = [

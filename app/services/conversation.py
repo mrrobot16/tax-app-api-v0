@@ -1,10 +1,10 @@
 from fastapi import BackgroundTasks
-from app.db.firebase import conversations_collection, firestore, users_collection
-from app.models.conversation import ConversationModel
-from app.models.message import MessageModel
-from app.utils import generate_timestamp
-from app.utils.firebase import convert_doc_refs
-from app.services.openai import OpenAIService
+from db.firebase import conversations_collection, firestore, users_collection
+from models.conversation import ConversationModel
+from models.message import MessageModel
+from utils import generate_timestamp
+from utils.firebase import convert_doc_refs
+from services.openai import OpenAIService
 
 class ConversationService:
 

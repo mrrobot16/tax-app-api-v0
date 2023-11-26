@@ -3,8 +3,8 @@ from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
 
 
-from app.models.user import UserModel, UserPrivateModel
-from app.services.user import UserService
+from models.user import UserModel, UserPrivateModel
+from services.user import UserService
 
 users_controller = APIRouter()
 

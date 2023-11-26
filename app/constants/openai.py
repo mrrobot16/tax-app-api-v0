@@ -1,8 +1,8 @@
 from fastapi import status
 
-from app.config import env_variables
-from app.enums.user import UserRole
-from app.enums.openai import OpenAIModel
+from config import env_variables
+from enums.user import UserRole
+from enums.openai import OpenAIModel
 
 OPENAI_SYSTEM_PROMPT = {
     "role": UserRole.SYSTEM.value,

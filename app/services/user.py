@@ -1,7 +1,7 @@
-from app.db.firebase import users_collection
-from app.enums.user import UserAuthType, UserRole
-from app.utils import generate_timestamp, generate_unique_id, hash_password
-from app.utils.firebase import convert_doc_refs
+from db.firebase import users_collection
+from enums.user import UserAuthType, UserRole
+from utils import generate_timestamp, generate_unique_id, hash_password
+from utils.firebase import convert_doc_refs
 
 class UserService:
 
