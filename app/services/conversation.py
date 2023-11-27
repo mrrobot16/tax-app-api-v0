@@ -66,7 +66,10 @@ class ConversationService:
         chat_completion_message = OpenAIService().chat_completion(message.content)
         chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
         tasks.add_task(self.new_message, chat_completion_message_model)
-        return chat_completion_message
+        return {
+            'conversation_id': conversation.id,
+            **chat_completion_message
+        }
 
     def new_message(self, message: MessageModel):
         conversation_ref = conversations_collection.document(message.conversation_id)

@@ -29,7 +29,7 @@ class OpenAIService:
                 "role": "user",
                 "content": prompt.encode(encoding = 'ASCII', errors = 'ignore').decode() + ". "
             }
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model = engine,
                 messages = [
                     system_prompt,
@@ -39,9 +39,9 @@ class OpenAIService:
                 temperature = temperature,
                 max_tokens = max_tokens
             )
-            message = response['choices'][0]['message']
-            openai_api_response_model = ChatCompletionResponseModel(message = message)
-            openai_response_model = OpenAIChatCompletionObjectResponseModel(**response)
+            message = response.choices[0].message
+            openai_api_response_model = ChatCompletionResponseModel(message = message.model_dump())
+            openai_response_model = OpenAIChatCompletionObjectResponseModel(**response.model_dump())
             return {
                 "api": openai_api_response_model.model_dump(),
                 "open_ai_chat_completion_api": openai_response_model.model_dump()
