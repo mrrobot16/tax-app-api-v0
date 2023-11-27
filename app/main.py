@@ -1,11 +1,11 @@
 from fastapi import FastAPI, status
 
 from app.metadata import metadata
-from routes import configure_routes
-from middleware import configure_middleware
+from app.routes import configure_routes
+from app.middleware import configure_middleware
 
-from config import APP_ENABLED, APP_ENV
-from utils.sentry import configure_sentry
+from app.config import APP_ENABLED, APP_ENV
+from app.utils.sentry import configure_sentry
 
 app = FastAPI(
     title = metadata["title"],
