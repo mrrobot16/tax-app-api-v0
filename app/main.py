@@ -1,6 +1,6 @@
 from fastapi import FastAPI, status
 
-from metadata import metadata
+from app.metadata import metadata
 from routes import configure_routes
 from middleware import configure_middleware
 
