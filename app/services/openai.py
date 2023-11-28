@@ -1,13 +1,13 @@
 from fastapi import status
 import openai
 
-from constants.openai import (
+from app.constants.openai import (
     OPENAI_ENGINE, 
     OPENAI_TEMPERATURE, OPENAI_MAX_TOKENS, 
     OPENAI_ASSISTANT_PROMPT, OPENAI_SYSTEM_PROMPT, OPENAI_USER_PROMPT, 
     OPENAI_API_KEY_DEV
 )
-from models.openai import ChatCompletionResponseModel, OpenAIChatCompletionObjectResponseModel
+from app.models.openai import ChatCompletionResponseModel, OpenAIChatCompletionObjectResponseModel
 
 class OpenAIService:
 

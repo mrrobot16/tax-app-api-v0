@@ -2,9 +2,9 @@ from typing import Dict, Optional
 from fastapi import APIRouter, HTTPException, status, BackgroundTasks
 from fastapi.responses import JSONResponse
 
-from models.message import MessageModel
-from models.conversation import ConversationModel
-from services.conversation import ConversationService
+from app.models.message import MessageModel
+from app.models.conversation import ConversationModel
+from app.services.conversation import ConversationService
 
 conversations_controller = APIRouter()
 

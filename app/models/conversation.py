@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-from models.message import MessageGroupModel, MessageModel
-from utils import generate_timestamp, generate_unique_id
+from app.models.message import MessageGroupModel, MessageModel
+from app.utils import generate_timestamp, generate_unique_id
 
 class ConversationModel(BaseModel):
     id: str = generate_unique_id()

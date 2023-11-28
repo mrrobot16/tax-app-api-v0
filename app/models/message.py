@@ -3,8 +3,8 @@ from datetime import datetime
 from typing import Optional
 
 
-from enums.user import UserRole
-from utils import generate_timestamp, generate_unique_id
+from app.enums.user import UserRole
+from app.utils import generate_timestamp, generate_unique_id
 
 class MessageModel(BaseModel):
     id: str = generate_unique_id()

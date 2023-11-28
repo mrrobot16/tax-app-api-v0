@@ -3,9 +3,9 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 import requests
 
-from models.openai import OpenAIChatCompletionObjectResponseModel, OpenAIChatCompletionRequestModel, ChatCompletionResponseModel
-from services.openai import openai_service
-from constants.openai import OPENAI_API_KEY_DEV
+from app.models.openai import OpenAIChatCompletionObjectResponseModel, OpenAIChatCompletionRequestModel, ChatCompletionResponseModel
+from app.services.openai import openai_service
+from app.constants.openai import OPENAI_API_KEY_DEV
 
 openai_controller = APIRouter()
 
