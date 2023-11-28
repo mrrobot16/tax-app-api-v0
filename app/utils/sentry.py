@@ -1,6 +1,6 @@
 import sentry_sdk
 
-from config import APP_ENV
+from app.config import APP_ENV
 
 dsn_prod = "https://0d5b4affa4bb6de26500adb548c89615@o4506084321984512.ingest.sentry.io/4506215990755328"
 dsn_dev = "https://6109e8b98dd30fb722b3770de8ef54e7@o4506084321984512.ingest.sentry.io/4506210817277952"

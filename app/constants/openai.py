@@ -1,6 +1,6 @@
 from fastapi import status
 
-from config import env_variables
+from app.config import env_variables
 from app.enums.user import UserRole
 from app.enums.openai import OpenAIModel
 
