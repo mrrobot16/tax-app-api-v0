@@ -15,6 +15,8 @@ if env_variables.APP_ENV == 'production':
         'http://app.taxapp.chat',
         'https://demo.taxapp.chat',
         'http://demo.taxapp.chat',
+        'https://dev.taxapp.chat',
+        'http://dev.taxapp.chat'
     ]
 elif env_variables.APP_ENV == 'development':
     allowed_origins = [
