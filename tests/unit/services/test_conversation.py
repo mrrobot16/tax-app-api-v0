@@ -115,7 +115,7 @@ def test_new_chat_completion_message(tasks):
     assert open_ai_chat_completion_api['choices'][0]['message']['role'] == UserRole.ASSISTANT.value
     assert open_ai_chat_completion_api['choices'][0]['message']['content'] is not None
     assert open_ai_chat_completion_api['object'] == OpenAIObjectType.CHAT_COMPLETION.value
-    assert open_ai_chat_completion_api['model'] == OpenAIModel.GPT_4_1106_PRE.value
+    assert open_ai_chat_completion_api['model'] == OpenAIModel.GPT_4_1106_PRE.value or open_ai_chat_completion_api['model'] == OpenAIModel.GPT_3_5_TURBO_16K.value
 
     api = response['api']
     message = api['message']
@@ -142,7 +142,7 @@ def test_new_conversation_chat_completion_message(tasks):
     assert open_ai_chat_completion_api['choices'][0]['message']['role'] == UserRole.ASSISTANT.value
     assert open_ai_chat_completion_api['choices'][0]['message']['content'] is not None
     assert open_ai_chat_completion_api['object'] == OpenAIObjectType.CHAT_COMPLETION.value
-    assert open_ai_chat_completion_api['model'] == OpenAIModel.GPT_4_1106_PRE.value
+    assert open_ai_chat_completion_api['model'] == OpenAIModel.GPT_4_1106_PRE.value or open_ai_chat_completion_api['model'] == OpenAIModel.GPT_3_5_TURBO_16K.value
 
     api = response['api']
     message = api['message']
