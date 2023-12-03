@@ -72,6 +72,7 @@ class ConversationService:
         }
 
     def new_message(self, message: MessageModel):
+        print('me first')
         conversation_ref = conversations_collection.document(message.conversation_id)
         try:
             conversation_ref.update({
@@ -87,6 +88,7 @@ class ConversationService:
         tasks.add_task(self.new_message, message)
         chat_completion_message = OpenAIService().chat_completion(message.content)
         chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
+        print('me second')
         tasks.add_task(self.new_message, chat_completion_message_model)
         return chat_completion_message
 
