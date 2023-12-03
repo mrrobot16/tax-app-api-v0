@@ -3,6 +3,7 @@
     "license": "MIT",
     "scripts": {
         "start": "yarn doppler:watch",
+        "restart": "yarn kill:ports && yarn doppler", 
         "dev": "uvicorn app.main:app --reload",
         "doppler:dev": "doppler run -- yarn dev",
         "prod": "yarn prod:linux",
