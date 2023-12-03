@@ -26,6 +26,26 @@ class UserService:
         user_doc_ref = convert_doc_refs(user)
         return user_doc_ref
     
+
+    def get_all_users_with_conversation_ids():
+        users = users_collection.stream()
+
+        result = []
+        for user_doc in users:
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                user_id = user_data.get("id", None)
+
+                # Extract only the conversation IDs from the 'conversations' field
+                conversation_ids = [conv_ref.id for conv_ref in user_data.get("conversations", [])]
+
+                result.append({
+                    "id": user_id,
+                    "conversations": conversation_ids
+                })
+
+        return result
+
     def new(
             name = "test_name",
             email = "test@email.com", 

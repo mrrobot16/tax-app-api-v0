@@ -17,6 +17,11 @@ def get_users():
     users = UserService.get_all()
     return users
 
+@users_controller.get("/all/ids")
+def get_all_users_with_conversation_ids():
+    users = UserService.get_all_users_with_conversation_ids()
+    return users
+
 @users_controller.get("/{id}")
 def get_user(id: str):
     user = UserService.get(id)
