@@ -74,7 +74,8 @@ class ConversationService:
             **chat_completion_message
         }
 
-    def new_message(self, message: MessageModel):
+    def new_message(self, message: MessageModel, flag_message: str = "default flag message"):
+        print('Flag Message: ', flag_message)
         conversation_ref = conversations_collection.document(message.conversation_id)
         try:
             conversation_ref.update({
@@ -87,15 +88,15 @@ class ConversationService:
             return error
 
     def new_chat_completion_message(self, message: MessageModel, tasks: BackgroundTasks):
-        print('\n')
-        print('me first')
-        self.new_message(message)
+        self.new_message(message, "user_message")
         # tasks.add_task(self.new_message, message)
         chat_completion_message = OpenAIService().chat_completion(message.content)
-        chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
-        print('me second')
-        print('\n')
-        self.new_message(chat_completion_message_model)
+        chat_completion_message_model = MessageModel(
+            user_id = message.user_id, 
+            conversation_id = message.conversation_id, 
+            **chat_completion_message['api']['message']
+        )
+        self.new_message(chat_completion_message_model, "assistant_message")
         # tasks.add_task(self.new_message, chat_completion_message_model)
         return chat_completion_message
 
