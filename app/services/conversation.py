@@ -6,6 +6,7 @@ from app.utils import generate_timestamp
 from app.utils.firebase import convert_doc_refs
 from app.services.openai import OpenAIService
 
+
 class ConversationService:
 
     def get_all():
@@ -60,15 +61,15 @@ class ConversationService:
             return None
 
     def new_conversation_chat_completion_message(self, conversation: ConversationModel, message: MessageModel, tasks: BackgroundTasks):
-        self.new(conversation)
-        # tasks.add_task(self.new, conversation)
+        # self.new(conversation)
+        tasks.add_task(self.new, conversation)
         message = MessageModel(user_id = conversation.user_id, conversation_id = conversation.id, content = message.content)
-        self.new_message(message)
-        # tasks.add_task(self.new_message, message)
+        # self.new_message(message)
+        tasks.add_task(self.new_message, message, "user_message")
         chat_completion_message = OpenAIService().chat_completion(message.content)
         chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
-        self.new_message(chat_completion_message_model)
-        # tasks.add_task(self.new_message, chat_completion_message_model)
+        # self.new_message(chat_completion_message_model)
+        tasks.add_task(self.new_message, chat_completion_message_model, "assistant_message")
         return {
             'conversation_id': conversation.id,
             **chat_completion_message
@@ -88,16 +89,16 @@ class ConversationService:
             return error
 
     def new_chat_completion_message(self, message: MessageModel, tasks: BackgroundTasks):
-        self.new_message(message, "user_message")
-        # tasks.add_task(self.new_message, message)
+        # self.new_message(message, "user_message")
+        tasks.add_task(self.new_message, message, "user_message")
         chat_completion_message = OpenAIService().chat_completion(message.content)
         chat_completion_message_model = MessageModel(
             user_id = message.user_id, 
             conversation_id = message.conversation_id, 
             **chat_completion_message['api']['message']
         )
-        self.new_message(chat_completion_message_model, "assistant_message")
-        # tasks.add_task(self.new_message, chat_completion_message_model)
+        # self.new_message(chat_completion_message_model, "assistant_message")
+        tasks.add_task(self.new_message, chat_completion_message_model, "assistant_message")
         return chat_completion_message
 
     # NOTE: Need to figure out a way to validate that data argument 
