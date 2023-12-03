@@ -43,7 +43,7 @@ class UserService:
                 result.append({
                     "id": user_id,
                     "email": email,
-                    "conversations": conversation_ids
+                    "conversation_id": conversation_ids[0] if len(conversation_ids) > 0 else None
                 })
 
         return result
