@@ -35,12 +35,14 @@ class UserService:
             if user_doc.exists:
                 user_data = user_doc.to_dict()
                 user_id = user_data.get("id", None)
+                email = user_data.get("email", None)
 
                 # Extract only the conversation IDs from the 'conversations' field
                 conversation_ids = [conv_ref.id for conv_ref in user_data.get("conversations", [])]
 
                 result.append({
                     "id": user_id,
+                    "email": email,
                     "conversations": conversation_ids
                 })
 
