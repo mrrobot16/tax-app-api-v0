@@ -85,10 +85,12 @@ class ConversationService:
             return error
 
     def new_chat_completion_message(self, message: MessageModel, tasks: BackgroundTasks):
+        print('\n')
         tasks.add_task(self.new_message, message)
         chat_completion_message = OpenAIService().chat_completion(message.content)
         chat_completion_message_model = MessageModel(user_id = message.user_id, conversation_id = message.conversation_id, **chat_completion_message['api']['message'])
         print('me second')
+        print('\n')
         tasks.add_task(self.new_message, chat_completion_message_model)
         return chat_completion_message
 
