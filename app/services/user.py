@@ -14,7 +14,7 @@ class UserService:
 
     def get(id):
         # Query the collection where 'id' is equal to user_id
-        users = users_collection.where('id', '==', id).limit(1).stream()
+        users = users_collection.where(field_path='id', op_string='==', value=id).limit(1).stream()
 
         # Users is an iterator of DocumentSnapshot
         # Converting DocumentSnapshot to a dictionary
