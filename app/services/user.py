@@ -1,8 +1,11 @@
+import warnings
+
 from app.db.firebase import users_collection
 from app.enums.user import UserAuthType, UserRole
 from app.utils import generate_timestamp, generate_unique_id, hash_password
 from app.utils.firebase import convert_doc_refs
 
+warnings.filterwarnings("ignore", category=UserWarning, message="Detected filter using positional arguments.*")
 class UserService:
 
     def get_all():
