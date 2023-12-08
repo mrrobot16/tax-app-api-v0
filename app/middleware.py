@@ -36,22 +36,19 @@ def configure_middleware(app: FastAPI):
     @app.middleware("http")
     async def add_process_time_header(request: Request, call_next):
         start_time = time.time()
-        current_utc_time = datetime.utcnow()
-
-        request_formatted_utc_time = current_utc_time.strftime("%Y-%m-%d %H:%M:%S")     
-        print('\n') 
-        print(f"Request UTC timestamp: {request_formatted_utc_time}")
-
+        start_current_utc_time = datetime.utcnow()
+        request_formatted_utc_time = start_current_utc_time.strftime("%Y-%m-%d %H:%M:%S")     
+        
         response = await call_next(request)
         process_time = time.time() - start_time
         response.headers["X-Process-Time"] = str(process_time)
-        current_utc_time = datetime.utcnow()
+        end_current_utc_time = datetime.utcnow()
 
-        response_formatted_utc_time = current_utc_time.strftime("%Y-%m-%d %H:%M:%S")      
-        request_message = f"Request Method: {request.method} Request URL: {request.url.path}"
-        response_message = f"Response status code: {response.status_code} X_Process_Time: {response.headers['X-Process-Time']}"
-        print(f"Response UTC timestamp: {response_formatted_utc_time}")
-        print(request_message)
-        print(response_message)
+        response_formatted_utc_time = end_current_utc_time.strftime("%Y-%m-%d %H:%M:%S")
+        request_message = f" Request UTC timestamp: {request_formatted_utc_time}\n Request Method: {request.method}\n Request URL: {request.url.path}"
+        response_message = f"Response UTC timestamp: {response_formatted_utc_time}\n Response status code: {response.status_code} X_Process_Time: {response.headers['X-Process-Time']}"
+        message = f"{request_message}\n {response_message}"
+        print('\n')
+        print(message)
 
         return response
