@@ -77,6 +77,7 @@ class ConversationService:
 
     def new_message(self, message: MessageModel, flag_message: str = "default flag message"):
         print('Flag Message: ', flag_message)
+        print('Message: ', message)
         conversation_ref = conversations_collection.document(message.conversation_id)
         try:
             conversation_ref.update({
